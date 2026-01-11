@@ -276,18 +276,18 @@
             margin: 80px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
         }
 
         .feature-card {
-            padding: 40px 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-            border-radius: 20px;
-            border: 3px solid transparent;
-            background-clip: padding-box;
+            padding: 45px 35px;
+            background: white;
+            border-radius: 25px;
             position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
         }
 
         .feature-card::before {
@@ -296,18 +296,40 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 3px;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
+            height: 6px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: all 0.5s;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(102, 126, 234, 0.25);
+        }
+
+        .feature-card:hover::after {
+            top: -30%;
+            right: -30%;
+            width: 250px;
+            height: 250px;
+        }
+
+        .feature-card:nth-child(1) {
+            border: 3px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-card:nth-child(1)::before {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
 
         .feature-card:nth-child(1) .feature-icon {
@@ -316,10 +338,26 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .feature-card:nth-child(2) {
+            border: 3px solid rgba(240, 147, 251, 0.2);
+        }
+
+        .feature-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+        }
+
         .feature-card:nth-child(2) .feature-icon {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card:nth-child(3) {
+            border: 3px solid rgba(79, 172, 254, 0.2);
+        }
+
+        .feature-card:nth-child(3)::before {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
         }
 
         .feature-card:nth-child(3) .feature-icon {
@@ -329,26 +367,38 @@
         }
 
         .feature-icon {
-            font-size: 3.5em;
-            margin-bottom: 20px;
+            font-size: 4.5em;
+            margin-bottom: 25px;
+            display: inline-block;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card h3 {
-            font-size: 1.3em;
-            margin-bottom: 12px;
-            color: #333;
+            font-size: 1.6em;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card .subtitle {
-            color: #999;
-            font-size: 0.9em;
-            margin-bottom: 15px;
+            color: #667eea;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card p {
-            color: #666;
-            line-height: 1.8;
-            font-size: 0.95em;
+            color: #555;
+            line-height: 1.9;
+            font-size: 1em;
+            position: relative;
+            z-index: 1;
         }
 
         .target-audience {
@@ -973,21 +1023,21 @@
         <h2 class="section-title">왜 <span class="highlight">ThinkDraw AI</span>인가?</h2>
         <div class="features">
             <div class="feature-card">
-                <div class="feature-icon">🧠</div>
+                <div class="feature-icon">🧩</div>
                 <h3>사고 구조화</h3>
                 <p class="subtitle">단순 이미지 생성기가 아닙니다</p>
                 <p>AI가 스스로 개념을 정의하고, 설명 구조를 만들고, 예시와 흐름을 구성하여 한 장의 시각적 결과물로 완성합니다.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">🎨</div>
+                <div class="feature-icon">🌈</div>
                 <h3>다양한 표현 스타일</h3>
                 <p class="subtitle">목적에 맞는 스타일 선택</p>
                 <p>비주얼씽킹, 인포그래픽, 마인드맵, 컨셉맵 등 7가지 스타일과 만년필, 파인라이너 등 8가지 필기 도구로 표현합니다.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">📱</div>
+                <div class="feature-icon">🌐</div>
                 <h3>다목적 활용</h3>
                 <p class="subtitle">교육, 출판, SNS까지</p>
                 <p>16:9, 9:16, 1:1 비율로 PPT, 유튜브 쇼츠, 인스타 피드 등 다양한 채널에 바로 활용할 수 있습니다.</p>
