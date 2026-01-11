@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThinkDraw AI - 대시보드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .empty-state .icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .image-info {
+            padding: 20px;
+        }
+
+        .image-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .image-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .image-meta span {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-download {
+            background: #667eea;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-download:hover {
+            background: #5568d3;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .btn-view {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #218838;
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 16px;
+            max-width: 800px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #667eea;
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+        }
+
+        .detail-section h3 {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .detail-item {
+            font-size: 14px;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            color: #333;
+            margin-top: 3px;
+        }
+
+        .prompt-display {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .no-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="thinkdraw-logo.png" alt="ThinkDraw AI" style="height: 40px; width: auto;">
+            </a>
+            <nav>
+                <a href="index.html">홈</a>
+                <a href="create.html" class="btn-primary">시작하기</a>
+                <a href="dashboard.html">대시보드</a>
+                <a href="settings.html">설정</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>📊 나의 대시보드</h1>
+        <p class="subtitle">생성한 이미지 목록을 확인하고 관리하세요</p>
+
+        <div class="empty-state" id="emptyState">
+            <div class="icon">🎨</div>
+            <h2>생성한 이미지가 없습니다</h2>
+            <p>첫 번째 이미지를 생성해보세요!</p>
+            <a href="create.html" class="btn-primary">시작하기 →</a>
+        </div>
+
+        <div class="gallery" id="gallery" style="display: none;">
+            <!-- 이미지 카드가 여기에 동적으로 추가됩니다 -->
+        </div>
+    </div>
+
+    <!-- 상세 정보 모달 -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 프로젝트 상세 정보</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 동적으로 채워질 내용 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 페이지 로드 시 이미지 히스토리 로드
+        window.addEventListener('load', function() {
+            loadImageHistory();
+        });
+
+        function loadImageHistory() {
+            const historyJson = localStorage.getItem('image_history');
+
+            if (!historyJson) {
+                showEmptyState();
+                return;
+            }
+
+            const history = JSON.parse(historyJson);
+
+            if (history.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            showGallery(history);
+        }
+
+        function showEmptyState() {
+            document.getElementById('emptyState').style.display = 'block';
+            document.getElementById('gallery').style.display = 'none';
+        }
+
+        function showGallery(images) {
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('gallery').style.display = 'grid';
+
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+
+            // 최신순으로 정렬
+            images.reverse().forEach((item, index) => {
+                const card = createImageCard(item, images.length - 1 - index);
+                gallery.appendChild(card);
+            });
+        }
+
+        function createImageCard(item, index) {
+            const card = document.createElement('div');
+            card.className = 'image-card';
+
+            const date = new Date(item.timestamp).toLocaleDateString('ko-KR');
+            const time = new Date(item.timestamp).toLocaleTimeString('ko-KR');
+
+            // 이미지 URL이 없으면 플레이스홀더 표시
+            const imageHtml = item.imageUrl
+                ? `<img src="${item.imageUrl}" alt="${item.topic}">`
+                : `<div class="no-image" style="height: 250px;">이미지 미생성</div>`;
+
+            card.innerHTML = `
+                ${imageHtml}
+                <div class="image-info">
+                    <h3>${item.topic}</h3>
+                    <div class="image-meta">
+                        <span>🎯 ${item.audience}</span>
+                        <span>🎨 ${item.style}</span>
+                    </div>
+                    <div class="image-meta">
+                        <span>📐 ${item.size}</span>
+                        <span>✏️ ${item.tool}</span>
+                    </div>
+                    <div class="image-meta">
+                        <span>📅 ${date} ${time}</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn-small btn-view" onclick="viewDetails(${index})">
+                            상세보기
+                        </button>
+                        ${item.imageUrl ? `<button class="btn-small btn-download" onclick="downloadImage('${item.imageUrl}', '${item.topic}')">
+                            다운로드
+                        </button>` : ''}
+                        <button class="btn-small btn-delete" onclick="deleteImage(${index})">
+                            삭제
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function downloadImage(url, topic) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `thinkdraw-${topic}-${Date.now()}.png`;
+            link.click();
+        }
+
+        function deleteImage(index) {
+            if (!confirm('이 이미지를 삭제하시겠습니까?')) {
+                return;
+            }
+
+            const historyJson = localStorage.getItem('image_history');
+            const history = JSON.parse(historyJson);
+
+            // 역순으로 표시되므로 실제 인덱스 계산
+            const actualIndex = history.length - 1 - index;
+            history.splice(actualIndex, 1);
+
+            localStorage.setItem('image_history', JSON.stringify(history));
+            loadImageHistory();
+        }
+
+        function viewDetails(index) {
+            const historyJson = localStorage.getItem('image_history');
+            const history = JSON.parse(historyJson);
+
+            // 역순으로 표시되므로 실제 인덱스 계산
+            const actualIndex = history.length - 1 - index;
+            const item = history[actualIndex];
+
+            const date = new Date(item.timestamp).toLocaleDateString('ko-KR');
+            const time = new Date(item.timestamp).toLocaleTimeString('ko-KR');
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="detail-section">
+                    <h3>📝 입력 정보</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">주제</div>
+                            <div class="detail-value">${item.topic}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">타겟 청중</div>
+                            <div class="detail-value">${item.audience}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">스타일</div>
+                            <div class="detail-value">${item.style}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">필기 도구</div>
+                            <div class="detail-value">${item.tool}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">사이즈</div>
+                            <div class="detail-value">${item.size}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">언어</div>
+                            <div class="detail-value">${item.language}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">장식</div>
+                            <div class="detail-value">${item.decoration}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">생성 날짜</div>
+                            <div class="detail-value">${date} ${time}</div>
+                        </div>
+                    </div>
+                    ${item.detail ? `
+                    <div style="margin-top: 15px;">
+                        <div class="detail-label">상세 내용</div>
+                        <div class="detail-value" style="margin-top: 8px; padding: 12px; background: white; border-radius: 6px; line-height: 1.6;">${item.detail}</div>
+                    </div>
+                    ` : ''}
+                </div>
+
+                <div class="detail-section">
+                    <h3>🤖 생성된 프롬프트</h3>
+                    <div class="prompt-display">${item.finalPrompt || item.refinedPrompt || '프롬프트 정보가 없습니다.'}</div>
+                </div>
+            `;
+
+            openModal();
+        }
+
+        function openModal() {
+            document.getElementById('detailModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+
+        // 모달 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
