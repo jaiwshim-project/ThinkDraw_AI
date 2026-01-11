@@ -440,6 +440,102 @@
             background: #dc2626;
         }
 
+        .gallery-section {
+            padding: 80px 0;
+            background: white;
+            overflow: hidden;
+        }
+
+        .gallery-title {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .gallery-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .slider-track {
+            display: flex;
+            gap: 30px;
+            animation: scroll 20s linear infinite;
+        }
+
+        .slider-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .sample-card {
+            flex: 0 0 350px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .sample-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .sample-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: white;
+            overflow: hidden;
+        }
+
+        .sample-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sample-info {
+            padding: 20px;
+        }
+
+        .sample-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .sample-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .sample-tag {
+            padding: 4px 10px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            font-size: 0.8em;
+            color: #666;
+        }
+
         .admin-footer {
             background: #1f2937;
             padding: 30px 20px;
@@ -578,6 +674,185 @@
                 <h3>다목적 활용</h3>
                 <p class="subtitle">교육, 출판, SNS까지</p>
                 <p>16:9, 9:16, 1:1 비율로 PPT, 유튜브 쇼츠, 인스타 피드 등 다양한 채널에 바로 활용할 수 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Slider Section -->
+    <section class="gallery-section">
+        <h2 class="gallery-title">ThinkDraw AI로 만든 <span class="highlight">결과물</span></h2>
+
+        <div class="gallery-slider">
+            <div class="slider-track">
+                <!-- 첫 번째 세트 (원본) -->
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="RQTDW 인간 사고 및 질문 OS 비주얼씽킹.png" alt="RQTDW 사고법">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">RQTDW 사고법</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">📊 비주얼씽킹</span>
+                            <span class="sample-tag">🖊️ 만년필</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="초등4 수학 - 각도 학습.png" alt="초등4 수학 각도 학습">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">초등4 수학 - 각도 학습</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">📚 인포그래픽</span>
+                            <span class="sample-tag">✏️ 연필</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="50대를 위한 치과 신뢰 마케팅 전략 비주얼씽킹.png" alt="치과 마케팅 전략">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">치과 신뢰 마케팅 전략</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🎯 비주얼씽킹</span>
+                            <span class="sample-tag">🖍️ 마커</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="3년차 바이오 스타트업 해외 세일즈 전략.png" alt="바이오 스타트업 전략">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">바이오 스타트업 해외 세일즈</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🚀 다이어그램</span>
+                            <span class="sample-tag">🖊️ 파인라이너</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="은퇴 시니어 제2 인생 설계안.png" alt="시니어 인생 설계">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">은퇴 시니어 제2 인생 설계</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🗺️ 마인드맵</span>
+                            <span class="sample-tag">🎨 수채화</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="AI 상식사전.png" alt="AI 상식사전">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">AI 상식사전</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🧩 인포그래픽</span>
+                            <span class="sample-tag">🖍️ 디지털</span>
+                            <span class="sample-tag">1:1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 두 번째 세트 (복제본 - 무한 루프용) -->
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="RQTDW 인간 사고 및 질문 OS 비주얼씽킹.png" alt="RQTDW 사고법">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">RQTDW 사고법</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">📊 비주얼씽킹</span>
+                            <span class="sample-tag">🖊️ 만년필</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="초등4 수학 - 각도 학습.png" alt="초등4 수학 각도 학습">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">초등4 수학 - 각도 학습</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">📚 인포그래픽</span>
+                            <span class="sample-tag">✏️ 연필</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="50대를 위한 치과 신뢰 마케팅 전략 비주얼씽킹.png" alt="치과 마케팅 전략">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">치과 신뢰 마케팅 전략</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🎯 비주얼씽킹</span>
+                            <span class="sample-tag">🖍️ 마커</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="3년차 바이오 스타트업 해외 세일즈 전략.png" alt="바이오 스타트업 전략">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">바이오 스타트업 해외 세일즈</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🚀 다이어그램</span>
+                            <span class="sample-tag">🖊️ 파인라이너</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="은퇴 시니어 제2 인생 설계안.png" alt="시니어 인생 설계">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">은퇴 시니어 제2 인생 설계</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🗺️ 마인드맵</span>
+                            <span class="sample-tag">🎨 수채화</span>
+                            <span class="sample-tag">16:9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sample-card">
+                    <div class="sample-image">
+                        <img src="AI 상식사전.png" alt="AI 상식사전">
+                    </div>
+                    <div class="sample-info">
+                        <div class="sample-title">AI 상식사전</div>
+                        <div class="sample-tags">
+                            <span class="sample-tag">🧩 인포그래픽</span>
+                            <span class="sample-tag">🖍️ 디지털</span>
+                            <span class="sample-tag">1:1</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
