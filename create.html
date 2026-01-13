@@ -362,6 +362,29 @@
             margin-top: 6px;
         }
 
+        /* 다중 선택 체크 인디케이터 */
+        .option-card .check-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .option-card.multi-select.selected .check-indicator {
+            display: flex;
+        }
+
         /* 네비게이션 버튼 */
         .nav-buttons {
             display: flex;
@@ -578,12 +601,17 @@
         }
 
         /* 9단계 - 생성된 프롬프트 */
+        #prompts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .prompt-box {
             background: #fff9e6;
             border: 2px solid #ffc107;
             border-radius: 12px;
             padding: 25px;
-            margin-bottom: 25px;
         }
 
         .prompt-header {
@@ -621,6 +649,32 @@
         }
 
         .btn-copy:active {
+            transform: translateY(0);
+        }
+
+        .btn-copy-bottom {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto 0;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-copy-bottom:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-copy-bottom:active {
             transform: translateY(0);
         }
 
@@ -713,6 +767,17 @@
             width: auto;
         }
 
+        .logo-text {
+            margin-left: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         nav {
             display: flex;
             align-items: center;
@@ -768,6 +833,47 @@
             text-decoration: underline;
         }
 
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .footer-button {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .guide-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .guide-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .admin-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .admin-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
         /* 바디 배경 조정 */
         body {
             background: #f8f9fa;
@@ -787,6 +893,7 @@
         <div class="header-content">
             <a href="index.html" class="logo">
                 <img src="thinkdraw-logo.png" alt="ThinkDraw AI">
+                <span class="logo-text">이미지 자동 생성 AI 플랫폼</span>
             </a>
             <nav>
                 <a href="index.html">홈</a>
@@ -1047,22 +1154,26 @@
             <!-- Step 7: 언어 선택 -->
             <div class="step-content" data-step="7">
                 <h2>언어를 선택하세요</h2>
-                <p class="subtitle">이미지에 표시할 언어를 선택하세요</p>
+                <p class="subtitle">이미지에 표시할 언어를 선택하세요 (여러 개 선택 가능, 최대 4개)</p>
 
                 <div class="language-grid">
-                    <div class="option-card" data-value="한국어">
+                    <div class="option-card multi-select" data-value="한국어">
+                        <div class="check-indicator">✓</div>
                         <div class="icon">🇰🇷</div>
                         <div class="label">한국어</div>
                     </div>
-                    <div class="option-card" data-value="English">
+                    <div class="option-card multi-select" data-value="English">
+                        <div class="check-indicator">✓</div>
                         <div class="icon">🇺🇸</div>
                         <div class="label">English</div>
                     </div>
-                    <div class="option-card" data-value="日本語">
+                    <div class="option-card multi-select" data-value="日本語">
+                        <div class="check-indicator">✓</div>
                         <div class="icon">🇯🇵</div>
                         <div class="label">日本語</div>
                     </div>
-                    <div class="option-card" data-value="中文">
+                    <div class="option-card multi-select" data-value="中文">
+                        <div class="check-indicator">✓</div>
                         <div class="icon">🇨🇳</div>
                         <div class="label">中文</div>
                     </div>
@@ -1115,6 +1226,11 @@
                         <div class="label">공룡</div>
                         <div class="hint">귀여운 공룡으로 흥미로운 글자를 강조</div>
                     </div>
+                    <div class="option-card" data-value="없음">
+                        <div class="icon">⭕</div>
+                        <div class="label">없음</div>
+                        <div class="hint">장식을 사용하지 않습니다</div>
+                    </div>
                 </div>
             </div>
 
@@ -1158,16 +1274,8 @@
                     </div>
                 </div>
 
-                <!-- 생성된 프롬프트 -->
-                <div class="prompt-box">
-                    <div class="prompt-header">
-                        <h3>🤖 생성된 프롬프트</h3>
-                        <button class="btn-copy" onclick="copyPromptToClipboard()">📋 복사하기</button>
-                    </div>
-                    <p class="prompt-description">아래 프롬프트로 이미지가 생성됩니다</p>
-                    <div class="prompt-display" id="final-prompt-display"></div>
-                    <div class="prompt-char-count" id="final-char-count">0자</div>
-                </div>
+                <!-- 생성된 프롬프트 (언어별로 동적 생성) -->
+                <div id="prompts-container"></div>
 
                 <!-- 생성 버튼 -->
                 <div class="generate-section">
@@ -1219,7 +1327,7 @@
             style: '',
             tool: '',
             size: '',
-            language: '',
+            language: [], // 배열로 변경하여 다중 선택 지원
             decoration: ''
         };
 
@@ -1234,33 +1342,56 @@
             const card = e.target.closest('.option-card');
             if (!card) return;
 
-            // 이미 선택된 카드를 다시 클릭하면 무시
-            if (card.classList.contains('selected')) return;
-
             const stepContent = card.closest('.step-content');
             if (!stepContent) return;
 
-            const step = stepContent.dataset.step;
+            const step = parseInt(stepContent.dataset.step);
             const value = card.dataset.value;
 
-            console.log(`Step ${step}: 선택된 값 = ${value}`);
+            // Step 7 (언어 선택)은 다중 선택 처리
+            if (step === 7) {
+                // 이미 선택된 카드를 클릭하면 선택 해제
+                if (card.classList.contains('selected')) {
+                    card.classList.remove('selected');
+                    // 배열에서 제거
+                    const index = formData.language.indexOf(value);
+                    if (index > -1) {
+                        formData.language.splice(index, 1);
+                    }
+                } else {
+                    // 최대 4개까지만 선택 가능
+                    if (formData.language.length >= 4) {
+                        alert('최대 4개까지만 선택할 수 있습니다.');
+                        return;
+                    }
+                    // 선택 추가
+                    card.classList.add('selected');
+                    formData.language.push(value);
+                }
+                console.log(`Step ${step}: 선택된 언어 = ${formData.language.join(', ')}`);
+            } else {
+                // 다른 단계는 단일 선택
+                // 이미 선택된 카드를 다시 클릭하면 무시
+                if (card.classList.contains('selected')) return;
 
-            // 모든 단계에서 해당 step-content 내의 모든 카드에서 selected 제거
-            stepContent.querySelectorAll('.option-card').forEach(c => {
-                c.classList.remove('selected');
-            });
+                console.log(`Step ${step}: 선택된 값 = ${value}`);
 
-            // 클릭한 카드만 선택
-            card.classList.add('selected');
+                // 모든 단계에서 해당 step-content 내의 모든 카드에서 selected 제거
+                stepContent.querySelectorAll('.option-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
 
-            // 데이터 저장
-            switch(parseInt(step)) {
-                case 2: formData.audience = value; break;
-                case 4: formData.style = value; break;
-                case 5: formData.tool = value; break;
-                case 6: formData.size = value; break;
-                case 7: formData.language = value; break;
-                case 8: formData.decoration = value; break;
+                // 클릭한 카드만 선택
+                card.classList.add('selected');
+
+                // 데이터 저장
+                switch(step) {
+                    case 2: formData.audience = value; break;
+                    case 4: formData.style = value; break;
+                    case 5: formData.tool = value; break;
+                    case 6: formData.size = value; break;
+                    case 8: formData.decoration = value; break;
+                }
             }
 
             console.log('formData:', formData);
@@ -1275,8 +1406,13 @@
             const stepContent = card.closest('.step-content');
             if (!stepContent) return;
 
-            const step = stepContent.dataset.step;
+            const step = parseInt(stepContent.dataset.step);
             const value = card.dataset.value;
+
+            // Step 7 (언어 선택)은 다중 선택이므로 더블클릭으로 다음 단계 이동 안 함
+            if (step === 7) {
+                return;
+            }
 
             // 먼저 선택 처리
             stepContent.querySelectorAll('.option-card').forEach(c => {
@@ -1285,12 +1421,11 @@
             card.classList.add('selected');
 
             // 데이터 저장
-            switch(parseInt(step)) {
+            switch(step) {
                 case 2: formData.audience = value; break;
                 case 4: formData.style = value; break;
                 case 5: formData.tool = value; break;
                 case 6: formData.size = value; break;
-                case 7: formData.language = value; break;
                 case 8: formData.decoration = value; break;
             }
 
@@ -1372,7 +1507,7 @@
                 case 4: return formData.style !== '';
                 case 5: return formData.tool !== '';
                 case 6: return formData.size !== '';
-                case 7: return formData.language !== '';
+                case 7: return formData.language.length > 0; // 최소 1개 이상 선택
                 case 8: return formData.decoration !== '';
                 default: return true;
             }
@@ -1409,20 +1544,74 @@
             document.getElementById('summary-style').textContent = formData.style;
             document.getElementById('summary-tool').textContent = formData.tool;
             document.getElementById('summary-size').textContent = formData.size;
-            document.getElementById('summary-language').textContent = formData.language;
+            // 언어를 배열로 표시
+            document.getElementById('summary-language').textContent = formData.language.join(', ');
             document.getElementById('summary-decoration').textContent = formData.decoration;
 
-            // 최종 프롬프트 생성 (모든 선택사항 포함)
-            const finalPrompt = buildFinalPrompt();
-            document.getElementById('final-prompt-display').textContent = finalPrompt;
-            document.getElementById('final-char-count').textContent = `${finalPrompt.length.toLocaleString()}자`;
+            // 언어별 프롬프트 생성 및 표시
+            const promptsContainer = document.getElementById('prompts-container');
+            promptsContainer.innerHTML = ''; // 초기화
 
-            // 자동으로 대시보드에 저장
-            saveToHistory(finalPrompt);
+            formData.language.forEach((lang, index) => {
+                const finalPrompt = buildFinalPrompt(lang);
+
+                // 프롬프트 박스 생성
+                const promptBox = document.createElement('div');
+                promptBox.className = 'prompt-box';
+
+                // 헤더 생성
+                const promptHeader = document.createElement('div');
+                promptHeader.className = 'prompt-header';
+
+                const h3 = document.createElement('h3');
+                h3.textContent = `🤖 생성된 프롬프트 (${lang})`;
+
+                const btnCopy = document.createElement('button');
+                btnCopy.className = 'btn-copy';
+                btnCopy.textContent = '📋 복사하기';
+                btnCopy.onclick = () => copyPromptToClipboard(lang);
+
+                promptHeader.appendChild(h3);
+                promptHeader.appendChild(btnCopy);
+
+                // 설명 생성
+                const promptDescription = document.createElement('p');
+                promptDescription.className = 'prompt-description';
+                promptDescription.textContent = `아래 프롬프트로 ${lang} 이미지가 생성됩니다`;
+
+                // 프롬프트 내용 생성
+                const promptDisplay = document.createElement('div');
+                promptDisplay.className = 'prompt-display';
+                promptDisplay.id = `final-prompt-display-${index}`;
+                promptDisplay.textContent = finalPrompt;
+
+                // 글자 수 표시
+                const charCount = document.createElement('div');
+                charCount.className = 'prompt-char-count';
+                charCount.textContent = `${finalPrompt.length.toLocaleString()}자`;
+
+                // 하단 복사 버튼
+                const bottomCopyBtn = document.createElement('button');
+                bottomCopyBtn.className = 'btn-copy-bottom';
+                bottomCopyBtn.textContent = '📋 복사하기';
+                bottomCopyBtn.onclick = () => copyPromptToClipboard(lang);
+
+                // 모두 추가
+                promptBox.appendChild(promptHeader);
+                promptBox.appendChild(promptDescription);
+                promptBox.appendChild(promptDisplay);
+                promptBox.appendChild(charCount);
+                promptBox.appendChild(bottomCopyBtn);
+
+                promptsContainer.appendChild(promptBox);
+
+                // 자동으로 대시보드에 저장
+                saveToHistory(finalPrompt);
+            });
         }
 
-        function buildFinalPrompt() {
-            const { topic, detail, audience, refinedPrompt, style, tool, size, language, decoration } = formData;
+        function buildFinalPrompt(targetLanguage) {
+            const { topic, detail, audience, refinedPrompt, style, tool, size, decoration } = formData;
 
             let prompt = '';
 
@@ -1433,14 +1622,21 @@
             prompt += `[선택한 표현 방식]\n`;
             prompt += `- 스타일: ${style}\n`;
             prompt += `- 필기 도구: ${tool} 느낌으로 표현\n`;
-            prompt += `- 언어: ${language}로 텍스트 표기\n`;
-            prompt += `- 장식: ${decoration} 스타일로 테두리와 강조 부분 장식\n`;
+            prompt += `- 언어: ${targetLanguage}로 텍스트 표기\n`;
+            if (decoration !== '없음') {
+                prompt += `- 장식: ${decoration} 스타일로 테두리와 강조 부분 장식\n`;
+            } else {
+                prompt += `- 장식: 장식 없이 깔끔하게 표현\n`;
+            }
             prompt += `- 이미지 크기: ${size}\n\n`;
 
             prompt += `[최종 요청사항]\n`;
             prompt += `위의 모든 조건을 종합하여 "${topic}"을 주제로 한 비주얼씽킹 이미지를 생성해주세요. `;
             prompt += `${style} 스타일을 기본으로 하되, ${tool}의 질감과 느낌을 살려주세요. `;
-            prompt += `${decoration}으로 중요한 부분을 강조하고, 전체적으로 ${audience}이(가) 이해하기 쉬운 구성으로 만들어주세요.`;
+            if (decoration !== '없음') {
+                prompt += `${decoration}으로 중요한 부분을 강조하고, `;
+            }
+            prompt += `전체적으로 ${audience}이(가) 이해하기 쉬운 구성으로 만들어주세요.`;
 
             return prompt;
         }
@@ -1592,8 +1788,9 @@
             }
         }
 
-        function copyPromptToClipboard() {
-            const promptText = document.getElementById('final-prompt-display').textContent;
+        function copyPromptToClipboard(language) {
+            // 해당 언어의 프롬프트 텍스트 가져오기
+            const promptText = buildFinalPrompt(language);
 
             if (!promptText) {
                 alert('복사할 프롬프트가 없습니다.');
@@ -1603,15 +1800,17 @@
             // 클립보드에 복사
             navigator.clipboard.writeText(promptText).then(function() {
                 // 복사 성공 피드백
-                const btn = event.target.closest('.btn-copy');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '✓ 복사됨!';
-                btn.style.background = '#2196F3';
+                const btn = event.target.closest('.btn-copy') || event.target.closest('.btn-copy-bottom');
+                if (btn) {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '✓ 복사됨!';
+                    btn.style.background = '#2196F3';
 
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '#4CAF50';
-                }, 2000);
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '#4CAF50';
+                    }, 2000);
+                }
             }).catch(function(err) {
                 // 복사 실패 시 fallback
                 console.error('복사 실패:', err);
@@ -1851,7 +2050,12 @@
             <div class="footer-links">
                 <a href="index.html">홈</a>
                 <a href="create.html">이미지 생성</a>
+                <a href="dashboard.html">대시보드</a>
                 <a href="settings.html">설정</a>
+            </div>
+            <div class="footer-buttons">
+                <a href="user-guide.html" class="footer-button guide-button">📚 사용자 가이드</a>
+                <a href="admin-dashboard.html" class="footer-button admin-button">🔧 관리자 대시보드</a>
             </div>
         </div>
     </footer>
